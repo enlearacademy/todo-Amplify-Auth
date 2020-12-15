@@ -3,6 +3,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_amplify/amplifyconfiguration.dart';
+import 'package:todo_amplify/screens/login_screen.dart';
 
 void main() {
   runApp(
@@ -52,6 +53,6 @@ class _AmplifyTODOState extends State<AmplifyTODO> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return LoginScreen();
   }
 }
