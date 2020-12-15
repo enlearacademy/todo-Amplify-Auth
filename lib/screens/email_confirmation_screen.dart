@@ -1,3 +1,5 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:todo_amplify/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -52,9 +54,23 @@ class EmailConfirmationScreen extends StatelessWidget {
   }
 
   Future<void> _submitCode(BuildContext context) async {
-    if(_formKey.currentState.validate()){
+    if (_formKey.currentState.validate()) {
       final confirmationCode = _confirmationCodeController.text;
-      // TODO: Submit the code to Amplify
+      try {
+        final SignUpResult response = await Amplify.Auth.confirmSignUp(
+          username: email,
+          confirmationCode: confirmationCode,
+        );
+        if (response.isSignUpComplete) {
+          _gotoMainScreen(context);
+        }
+      } on AuthError catch (e) {
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text(e.cause),
+          ),
+        );
+      }
     }
   }
 
